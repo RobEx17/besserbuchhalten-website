@@ -378,7 +378,11 @@
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams(new FormData(form)).toString(),
     })
-      .then(() => {
+      .then((response) => {
+        // fetch() only rejects on network failure, not on HTTP error status
+        // (e.g. 404 while Netlify Forms detection isn't enabled yet) — check
+        // response.ok explicitly so a failed submission never shows success.
+        if (!response.ok) throw new Error(`Form submission failed: ${response.status}`);
         successBox.classList.add("is-visible");
         form.reset();
         if (interessenSummaryText) interessenSummaryText.textContent = "Bitte auswählen";
