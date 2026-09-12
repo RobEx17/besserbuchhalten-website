@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "besserbuchhalten-site",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "serve", "-l", "4173", "/Users/robinexeler/besserbuchhalten-website"],
+      "port": 4173
+    }
+  ]
+}
