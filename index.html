@@ -358,15 +358,20 @@
             </details>
           </div>
           <div class="field">
-            <label for="digitalisierungsgrad">Aktueller Grad der Digitalisierung (optional)</label>
-            <select id="digitalisierungsgrad" name="digitalisierungsgrad">
-              <option value="" selected>Bitte auswählen</option>
-              <option value="Papierbasiert – kaum digitale Prozesse">Papierbasiert – kaum digitale Prozesse</option>
-              <option value="Einzelne digitale Tools im Einsatz">Einzelne digitale Tools im Einsatz</option>
-              <option value="Größtenteils digital, aber wenig automatisiert">Größtenteils digital, aber wenig automatisiert</option>
-              <option value="Digital und weitgehend automatisiert">Digital und weitgehend automatisiert</option>
-              <option value="Unsicher / möchte ich im Gespräch klären">Unsicher / möchte ich im Gespräch klären</option>
-            </select>
+            <span class="field-label-static">Aktueller Grad der Digitalisierung (optional)</span>
+            <details class="multiselect" id="digitalisierungsgradDropdown">
+              <summary class="multiselect-summary">
+                <span id="digitalisierungsgradSummaryText">Bitte auswählen</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="multiselect-chevron"><path d="M6 9l6 6 6-6"/></svg>
+              </summary>
+              <div class="multiselect-panel">
+                <label class="multiselect-option"><input type="radio" name="digitalisierungsgrad" value="Papierbasiert – kaum digitale Prozesse"><span>Papierbasiert – kaum digitale Prozesse</span></label>
+                <label class="multiselect-option"><input type="radio" name="digitalisierungsgrad" value="Einzelne digitale Tools im Einsatz"><span>Einzelne digitale Tools im Einsatz</span></label>
+                <label class="multiselect-option"><input type="radio" name="digitalisierungsgrad" value="Größtenteils digital, aber wenig automatisiert"><span>Größtenteils digital, aber wenig automatisiert</span></label>
+                <label class="multiselect-option"><input type="radio" name="digitalisierungsgrad" value="Digital und weitgehend automatisiert"><span>Digital und weitgehend automatisiert</span></label>
+                <label class="multiselect-option"><input type="radio" name="digitalisierungsgrad" value="Unsicher / möchte ich im Gespräch klären"><span>Unsicher / möchte ich im Gespräch klären</span></label>
+              </div>
+            </details>
           </div>
           <div class="field">
             <label for="message">Nachricht</label>

@@ -327,6 +327,26 @@
     });
   }
 
+  /* Single-select "dropdown" (same custom look as the multiselect above,
+     so both fields behave identically instead of one opening the native
+     OS picker): picking an option updates the summary and closes the panel. */
+  const digitalisierungsgradDropdown = document.getElementById("digitalisierungsgradDropdown");
+  const digitalisierungsgradSummaryText = document.getElementById("digitalisierungsgradSummaryText");
+  if (digitalisierungsgradDropdown && digitalisierungsgradSummaryText) {
+    const digitalisierungsgradRadios = digitalisierungsgradDropdown.querySelectorAll('input[type="radio"]');
+    digitalisierungsgradRadios.forEach((radio) => {
+      radio.addEventListener("change", () => {
+        digitalisierungsgradSummaryText.textContent = radio.value;
+        digitalisierungsgradDropdown.open = false;
+      });
+    });
+    document.addEventListener("click", (e) => {
+      if (digitalisierungsgradDropdown.open && !digitalisierungsgradDropdown.contains(e.target)) {
+        digitalisierungsgradDropdown.open = false;
+      }
+    });
+  }
+
   /* Contact form: client-side validation + mailto fallback (no backend yet) */
   const form = document.getElementById("contactForm");
   const successBox = document.getElementById("formSuccess");
@@ -387,6 +407,8 @@
         form.reset();
         if (interessenSummaryText) interessenSummaryText.textContent = "Bitte auswählen";
         if (interessenDropdown) interessenDropdown.open = false;
+        if (digitalisierungsgradSummaryText) digitalisierungsgradSummaryText.textContent = "Bitte auswählen";
+        if (digitalisierungsgradDropdown) digitalisierungsgradDropdown.open = false;
       })
       .catch(() => {
         // Fallback (e.g. running locally, not yet deployed on Netlify):
