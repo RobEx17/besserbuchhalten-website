@@ -3,6 +3,19 @@
 
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* Before/after comparison slider: a native range input drives a CSS
+     custom property, which both clips the "before" image and positions
+     the divider handle. */
+  const baSlider = document.getElementById("baSlider");
+  const baRange = document.getElementById("baRange");
+  if (baSlider && baRange) {
+    const updateBaSlider = () => {
+      baSlider.style.setProperty("--pos", `${baRange.value}%`);
+    };
+    baRange.addEventListener("input", updateBaSlider);
+    updateBaSlider();
+  }
+
   /* Mobile nav */
   const navToggle = document.getElementById("navToggle");
   const navClose = document.getElementById("navClose");

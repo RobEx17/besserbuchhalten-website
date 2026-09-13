@@ -513,7 +513,83 @@ body:not(.has-scroll-hero) .hero-pin { position: relative; }
   font-size: 0.92rem;
   font-weight: 500;
   text-align: left;
+  pointer-events: none;
+  z-index: 4;
 }
+
+/* ============ Before/after comparison slider ============ */
+.ba-slider {
+  position: relative;
+  aspect-ratio: 1200 / 1005;
+  max-height: 420px;
+  overflow: hidden;
+  --pos: 50%;
+}
+.ba-slider .ba-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+.ba-slider .ba-before { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+.ba-divider {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: var(--pos);
+  width: 2px;
+  background: #fff;
+  transform: translateX(-50%);
+  box-shadow: 0 0 0 1px rgba(20, 24, 31, 0.15);
+  z-index: 2;
+}
+.ba-handle {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--teal-700);
+  box-shadow: var(--shadow-md);
+}
+.ba-handle svg { width: 20px; height: 20px; }
+.ba-label {
+  position: absolute;
+  top: var(--space-3);
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(20, 24, 31, 0.55);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  z-index: 2;
+}
+.ba-label-before { left: var(--space-3); }
+.ba-label-after { right: var(--space-3); }
+.ba-range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: ew-resize;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  z-index: 3;
+}
+.ba-range::-webkit-slider-runnable-track { -webkit-appearance: none; height: 100%; background: transparent; }
+.ba-range::-webkit-slider-thumb { -webkit-appearance: none; width: 40px; height: 100%; background: transparent; cursor: ew-resize; }
+.ba-range::-moz-range-track { height: 100%; background: transparent; border: none; }
+.ba-range::-moz-range-thumb { width: 40px; height: 100%; background: transparent; border: none; cursor: ew-resize; }
 
 /* ============ Reveal on scroll ============ */
 .reveal {
