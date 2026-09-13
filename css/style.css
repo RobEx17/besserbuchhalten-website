@@ -520,10 +520,11 @@ body:not(.has-scroll-hero) .hero-pin { position: relative; }
 /* ============ Before/after comparison slider ============ */
 .ba-slider {
   position: relative;
+  width: 100%;
   aspect-ratio: 1200 / 1005;
   max-height: 420px;
   overflow: hidden;
-  --pos: 50%;
+  --pos: 5%;
 }
 .ba-slider .ba-img {
   position: absolute;
@@ -535,7 +536,7 @@ body:not(.has-scroll-hero) .hero-pin { position: relative; }
   display: block;
   pointer-events: none;
 }
-.ba-slider .ba-before { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+.ba-slider .ba-after { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
 .ba-divider {
   position: absolute;
   top: 0; bottom: 0;
