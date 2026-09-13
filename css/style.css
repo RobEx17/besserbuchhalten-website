@@ -557,6 +557,7 @@ body:not(.has-scroll-hero) .hero-pin { position: relative; }
 }
 .service-card:hover .service-icon { background: var(--teal-700); color: #fff; transform: rotate(-6deg) scale(1.05); }
 .service-icon svg { width: 28px; height: 28px; }
+.service-icon img { width: 34px; height: 34px; object-fit: contain; }
 .service-card h3 { font-size: 1.15rem; margin-bottom: 0.4rem; }
 .service-card p { font-size: 0.95rem; margin-bottom: 0; }
 
