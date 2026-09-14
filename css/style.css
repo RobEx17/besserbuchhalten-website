@@ -1151,14 +1151,32 @@ body:not(.has-scroll-wheel) .wheel-text-panel::before {
 }
 
 .examples-page { padding-top: 150px; }
+/* No card/frame — plain text on the page background, styled like the
+   Einleitung lead text (centered, larger, ink-700). */
 .examples-panel {
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius-md);
-  background: var(--surface);
-  padding: var(--space-5);
-  margin-bottom: var(--space-5);
+  max-width: 640px;
+  margin-inline: auto;
+  margin-top: var(--space-5);
+  margin-bottom: var(--space-6);
+  text-align: center;
 }
-.examples-panel h2 { margin-top: 0; color: var(--teal-700); }
+.examples-panel h2 { margin-top: 0; font-size: 1.8rem; }
+.examples-panel > p {
+  font-size: 1.15rem;
+  color: var(--ink-700);
+  max-width: 46ch;
+  margin-inline: auto;
+}
+.examples-panel ul {
+  text-align: left;
+  max-width: 46ch;
+  margin-inline: auto;
+  list-style: disc;
+  padding-left: 1.3rem;
+  color: var(--ink-700);
+  font-size: 1.05rem;
+}
+.examples-panel li { margin-bottom: 0.4rem; }
 
 .examples-contact-note {
   margin-top: var(--space-5);
