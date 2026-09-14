@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Konkrete Beispiele &amp; Tools – besserbuchhalten.de</title>
+<meta name="description" content="Konkrete Beispiele zu Digitalisierung, Automatisierung, künstlicher Intelligenz und Schnittstellen in der Buchhaltung – mit Bezug auf reale Software-Lösungen.">
+<meta name="theme-color" content="#fbfbfa">
+<link rel="icon" href="assets/img/logo-hoch.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="site-gate" id="siteGate">
+  <div class="site-gate-card">
+    <img src="assets/img/logo-quer.png" alt="besserbuchhalten.de" class="site-gate-logo">
+    <p class="site-gate-text">Diese Website befindet sich noch in der finalen Abstimmung.<br>Bitte Passwort eingeben, um fortzufahren.</p>
+    <form class="site-gate-form" id="siteGateForm" autocomplete="off">
+      <input type="password" id="siteGatePassword" class="site-gate-input" placeholder="Passwort" autocomplete="off" required>
+      <button type="submit" class="btn btn-accent btn-block">Weiter</button>
+    </form>
+    <p class="site-gate-error" id="siteGateError" hidden>Falsches Passwort. Bitte erneut versuchen.</p>
+  </div>
+</div>
+<script>
+(function () {
+  var GATE_KEY = "bb_site_unlocked";
+  var GATE_PASSWORD = "DieseWebsiteistnochnichtfinal!";
+  var gate = document.getElementById("siteGate");
+
+  if (localStorage.getItem(GATE_KEY) === "true") {
+    gate.remove();
+    return;
+  }
+
+  var form = document.getElementById("siteGateForm");
+  var input = document.getElementById("siteGatePassword");
+  var error = document.getElementById("siteGateError");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (input.value === GATE_PASSWORD) {
+      localStorage.setItem(GATE_KEY, "true");
+      gate.remove();
+    } else {
+      error.hidden = false;
+      input.value = "";
+      input.focus();
+    }
+  });
+})();
+</script>
+
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html" aria-label="besserbuchhalten.de – Startseite">
+      <img src="assets/img/logo-quer.png" alt="besserbuchhalten.de Logo">
+    </a>
+  </div>
+</header>
+
+<main id="main" class="legal-page">
+  <div class="container">
+    <a class="back-link" href="index.html#leistungen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Zurück zu Leistungen</a>
+    <p class="eyebrow">Leistungen im Detail</p>
+    <h1>Konkrete Beispiele aus der Praxis</h1>
+    <p style="font-size:1.05rem;max-width:60ch;">Digitalisierung, Automatisierung, künstliche Intelligenz und Schnittstellen sind abstrakte Begriffe – hier sehen Sie, welche realen Tools und Lösungen je nach Situation zum Einsatz kommen können. Welche Kombination für Ihr Unternehmen sinnvoll ist, klären wir im persönlichen Gespräch.</p>
+
+    <h2>Digitalisierung</h2>
+    <p>Der erste Schritt ist meist die digitale Erfassung und Archivierung von Belegen und Rechnungen – gesetzeskonform und ohne Zettelwirtschaft.</p>
+    <ul>
+      <li><strong>E-Rechnungsformate:</strong> XRechnung und ZUGFeRD, um elektronische Rechnungen normgerecht zu empfangen und auszustellen.</li>
+      <li><strong>Buchhaltungssoftware mit digitaler Belegerfassung:</strong> z. B. DATEV Unternehmen online, Lexoffice oder sevDesk.</li>
+      <li><strong>Beleg-Scan per App:</strong> Belege direkt mit dem Smartphone fotografieren und automatisch der Buchhaltung zuordnen lassen.</li>
+    </ul>
+
+    <h2>Automatisierung</h2>
+    <p>Sind die Prozesse digitalisiert, lässt sich vieles automatisieren, was bisher manuell erledigt wurde.</p>
+    <ul>
+      <li><strong>Automatischer Rechnungsabruf:</strong> Tools wie GetMyInvoices oder Candis holen wiederkehrende Rechnungen selbstständig aus Online-Portalen ab.</li>
+      <li><strong>Workflow-Verknüpfungen:</strong> Zapier oder Make verbinden verschiedene Systeme miteinander, sodass Daten automatisch weiterfließen.</li>
+      <li><strong>Automatischer Bankabgleich:</strong> Kontoumsätze werden direkt in DATEV, Lexoffice oder sevDesk abgeglichen, ohne manuelles Zuordnen.</li>
+    </ul>
+
+    <h2>Künstliche Intelligenz</h2>
+    <p>Im eigentlichen Buchhaltungsprozess bleibt KI in der Regel dem Steuerberater vorbehalten – abseits davon lässt sie sich aber gewinnbringend im Unternehmensalltag einsetzen.</p>
+    <ul>
+      <li><strong>Texterstellung &amp; Recherche:</strong> ChatGPT oder Claude für Textvorlagen, Zusammenfassungen und erste Recherchen.</li>
+      <li><strong>Übersetzungen:</strong> DeepL für schnelle, hochwertige Übersetzungen geschäftlicher Korrespondenz.</li>
+      <li><strong>Website- &amp; Content-Erstellung:</strong> Mit KI-gestützten Werkzeugen lässt sich z. B. eine eigene Website – wie diese hier – deutlich einfacher umsetzen.</li>
+    </ul>
+
+    <h2>Schnittstellen</h2>
+    <p>Viele Systeme bringen bereits eigene Schnittstellen mit, die oft ungenutzt bleiben – richtig verbunden sparen sie doppelte Erfassung.</p>
+    <ul>
+      <li><strong>Kassensysteme:</strong> moderne Kassenlösungen mit direkter Anbindung an die Buchhaltungssoftware.</li>
+      <li><strong>Bank-Schnittstellen:</strong> die integrierten Bankfeeds von DATEV, Lexoffice und sevDesk zum automatischen Abruf von Kontoumsätzen.</li>
+      <li><strong>Zahlungsdienstleister:</strong> z. B. PayPal oder Stripe, deren Transaktionsdaten sich automatisiert verbuchen lassen.</li>
+    </ul>
+
+    <p style="font-size:0.88rem;color:var(--ink-300);">Hinweis: Die genannten Anbieter dienen der Veranschaulichung. Die konkrete Tool-Auswahl hängt von Ihrem Unternehmen und den bereits vorhandenen Systemen ab und wird individuell abgestimmt.</p>
+  </div>
+
+  <div class="container">
+    <div class="cta-band reveal is-visible" style="margin-top:var(--space-7);">
+      <div>
+        <h2>Welche Tools passen zu Ihrem Unternehmen?</h2>
+        <p>Im kostenlosen Erstgespräch schauen wir gemeinsam auf Ihre aktuellen Prozesse.</p>
+      </div>
+      <a href="index.html#kontakt" class="btn btn-accent">Kostenloses Erstgespräch</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-bottom">
+    <span>© 2026 besserbuchhalten.de – Wölfersheim</span>
+    <a href="index.html#kontakt">Kontakt</a>
+  </div>
+</footer>
+</body>
+</html>

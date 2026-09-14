@@ -184,6 +184,7 @@ section[id] { scroll-margin-top: var(--header-h, 80px); }
 }
 .btn-ghost:hover { border-color: var(--teal-600); color: var(--teal-700); }
 .btn-block { width: 100%; }
+.btn-sm { padding: 0.55rem 1.2rem; min-height: 38px; font-size: 0.9rem; }
 
 /* ============ Site password gate ============ */
 body:has(.site-gate) { overflow: hidden; }
@@ -594,7 +595,8 @@ body:has(.site-gate) { overflow: hidden; }
   justify-content: center;
   overflow: hidden;
 }
-.wheel-eyebrow { display: flex; justify-content: center; margin-bottom: var(--space-5); }
+.wheel-section-head { margin-bottom: var(--space-4); }
+.wheel-section-head .btn { margin-top: var(--space-2); }
 .wheel-layout {
   display: grid;
   grid-template-columns: 360px 1fr;
@@ -678,11 +680,20 @@ body:has(.site-gate) { overflow: hidden; }
   .wheel-icon { transition: none; }
 }
 @media (max-width: 900px) {
-  .wheel-layout { grid-template-columns: 1fr; justify-items: center; text-align: center; }
-  .wheel-circle { width: 240px; height: 240px; }
-  .wheel-icon { --radius: 98px; width: 64px; height: 64px; }
-  .wheel-title { margin-top: var(--space-4); margin-inline: auto; }
+  .wheel-layout { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: var(--space-3); }
+  .wheel-circle { width: 200px; height: 200px; }
+  .wheel-icon { --radius: 80px; width: 54px; height: 54px; }
+  .wheel-title { margin-top: var(--space-2); margin-inline: auto; }
   .wheel-text-panel { max-width: 46ch; margin-inline: auto; }
+  .wheel-text-panel p { font-size: 0.9rem; margin-bottom: var(--space-2); }
+  /* The header now shares the pinned 100vh stage with the wheel, so it has
+     to stay compact here or the wheel content gets clipped by the pin's
+     overflow:hidden. */
+  .wheel-section-head { margin-bottom: var(--space-2); }
+  .wheel-section-head > p:not(.eyebrow) { display: none; }
+  .wheel-section-head .eyebrow { margin-bottom: 0.4rem; }
+  .wheel-section-head h2 { font-size: 1.15rem; margin-bottom: 0; }
+  .wheel-section-head .btn { margin-top: var(--space-2); }
 }
 /* If no JS runs, there's no scroll-driven rotation — show a simple static stack */
 body:not(.has-scroll-wheel) .wheel-scroll { height: auto; padding-block: var(--space-8); }
@@ -1069,5 +1080,5 @@ body:not(.has-scroll-wheel) .wheel-text-panel::before {
   border-radius: 4px;
   font-weight: 600;
 }
-.back-link { display: inline-flex; align-items: center; gap: 0.4rem; margin-bottom: var(--space-4); color: var(--ink-500); font-weight: 600; }
+.back-link { display: flex; width: fit-content; align-items: center; gap: 0.4rem; margin-bottom: var(--space-4); color: var(--ink-500); font-weight: 600; }
 .back-link svg { width: 18px; height: 18px; }
