@@ -44,90 +44,6 @@
     window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
   });
 
-  /* Scroll-linked hero: a preloaded JPEG frame sequence is drawn to canvas
-     as the hero is scrolled through (no <video> seeking, which is unreliable
-     on iOS Safari); the floating nav pill only reveals once it has (almost)
-     finished. */
-  const heroScroll = document.querySelector(".hero-scroll");
-  const heroCanvas = document.getElementById("heroCanvas");
-  const heroCtx = heroCanvas ? heroCanvas.getContext("2d") : null;
-  const siteChrome = document.getElementById("siteChrome");
-  const REVEAL_THRESHOLD = 0.92;
-  const FRAME_COUNT = 90;
-  const frameSrc = (n) => `assets/video/frames/frame-${String(n).padStart(3, "0")}.jpg`;
-
-  const canScrubHero = !!(heroScroll && heroCanvas && heroCtx && siteChrome);
-  if (canScrubHero) {
-    document.body.classList.add("has-scroll-hero");
-  }
-
-  const heroFrames = [];
-  if (canScrubHero) {
-    for (let i = 1; i <= FRAME_COUNT; i++) {
-      const img = new Image();
-      img.decoding = "async";
-      img.src = frameSrc(i);
-      heroFrames.push(img);
-    }
-    heroFrames[0].addEventListener("load", () => drawHeroFrame(heroFrames[0]));
-  }
-
-  function drawHeroFrame(img) {
-    if (!img || !img.complete || !img.naturalWidth) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const cw = heroCanvas.clientWidth;
-    const ch = heroCanvas.clientHeight;
-    const targetW = Math.round(cw * dpr);
-    const targetH = Math.round(ch * dpr);
-    if (heroCanvas.width !== targetW || heroCanvas.height !== targetH) {
-      heroCanvas.width = targetW;
-      heroCanvas.height = targetH;
-    }
-    const scale = Math.max(heroCanvas.width / img.naturalWidth, heroCanvas.height / img.naturalHeight);
-    const dw = img.naturalWidth * scale;
-    const dh = img.naturalHeight * scale;
-    const dx = (heroCanvas.width - dw) / 2;
-    const dy = (heroCanvas.height - dh) / 2;
-    heroCtx.clearRect(0, 0, heroCanvas.width, heroCanvas.height);
-    heroCtx.drawImage(img, dx, dy, dw, dh);
-  }
-
-  /* Scroll-linked hero logo: starts large and centered on the hero, then
-     travels + shrinks into its normal header position as soon as scrolling
-     begins, fully docked well before the header chrome itself fades in.
-     `.brand` (the <a>) is never transformed, so its getBoundingClientRect()
-     always reflects the natural resting position/size to animate towards. */
-  const heroBrand = document.getElementById("heroBrand");
-  const heroBrandImg = document.getElementById("heroBrandImg");
-  const LOGO_DOCK_RANGE = 0.25; // fraction of hero scroll over which the logo docks
-  const LOGO_SCALE = 3.4;
-
-  const updateHeroLogo = (heroProgress) => {
-    if (!heroBrand || !heroBrandImg || !canScrubHero) return;
-
-    if (prefersReducedMotion) {
-      heroBrandImg.style.transform = "none";
-      return;
-    }
-
-    const dockProgress = Math.min(1, heroProgress / LOGO_DOCK_RANGE);
-    const t = 1 - dockProgress; // 1 = fully centered/large, 0 = docked at natural size
-
-    if (t <= 0) {
-      heroBrandImg.style.transform = "none";
-      return;
-    }
-
-    const rect = heroBrand.getBoundingClientRect();
-    const naturalCenterX = rect.left + rect.width / 2;
-    const naturalCenterY = rect.top + rect.height / 2;
-    const dx = window.innerWidth / 2 - naturalCenterX;
-    const dy = window.innerHeight / 2 - naturalCenterY;
-    const scale = 1 + (LOGO_SCALE - 1) * t;
-
-    heroBrandImg.style.transform = `translate(${dx * t}px, ${dy * t}px) scale(${scale})`;
-  };
-
   /* Scroll-linked "Leistungen im Detail" wheel: 4 icons on a ring rotate
      counter-clockwise as the section is scrolled through; the matching
      long-form text panel crossfades in alongside. */
@@ -137,6 +53,9 @@
   const wheelIcons = document.querySelectorAll(".wheel-icon");
   const wheelPanels = document.querySelectorAll(".wheel-text-panel");
   const canRotateWheel = !!(wheelScroll && wheelRing && wheelIcons.length && wheelPanels.length);
+  if (canRotateWheel) {
+    document.body.classList.add("has-scroll-wheel");
+  }
   let wheelStage = -1;
 
   const updateWheel = () => {
@@ -193,19 +112,6 @@
     backToTop.classList.toggle("is-visible", window.scrollY > 480);
     updateWheel();
     updateNavIndicator();
-
-    if (!canScrubHero) return;
-
-    const heroTotal = heroScroll.offsetHeight - window.innerHeight;
-    const rect = heroScroll.getBoundingClientRect();
-    const scrolledIntoHero = Math.min(Math.max(-rect.top, 0), Math.max(heroTotal, 0));
-    const heroProgress = heroTotal > 0 ? scrolledIntoHero / heroTotal : 1;
-
-    const frameIndex = prefersReducedMotion ? 0 : Math.min(FRAME_COUNT - 1, Math.round(heroProgress * (FRAME_COUNT - 1)));
-    drawHeroFrame(heroFrames[frameIndex]);
-    updateHeroLogo(heroProgress);
-
-    siteChrome.classList.toggle("is-visible", heroProgress >= REVEAL_THRESHOLD);
   };
 
   let ticking = false;
@@ -220,62 +126,6 @@
   window.addEventListener("scroll", requestScrollUpdate, { passive: true });
   window.addEventListener("resize", requestScrollUpdate);
   updateScrollChrome();
-
-  /* Autoplay: on load, scroll through the hero by itself so it looks like the
-     video is simply playing. It scrolls a full viewport further than the
-     video itself needs, so it only stops once the hero has scrolled fully
-     out of view and the next section fills the whole screen (no trace of
-     the video's last frame left). Any real scroll/touch/key/drag input from
-     the visitor cancels it immediately and hands control back to normal
-     scrolling. */
-  if (canScrubHero && !prefersReducedMotion) {
-    const heroTotalAtLoad = heroScroll.offsetHeight; // scroll past the hero entirely
-    if (heroTotalAtLoad > 0) {
-      const AUTOPLAY_DELAY = 500;
-      const AUTOPLAY_DURATION = 8000;
-      let autoplayActive = true;
-      let autoplayRAF = null;
-      let autoplayStart = null;
-
-      const stopAutoplay = () => {
-        if (!autoplayActive) return;
-        autoplayActive = false;
-        if (autoplayRAF) cancelAnimationFrame(autoplayRAF);
-        window.removeEventListener("wheel", stopAutoplay);
-        window.removeEventListener("touchstart", stopAutoplay);
-        window.removeEventListener("pointerdown", stopAutoplay);
-        window.removeEventListener("keydown", onKeydownStop);
-      };
-
-      const SCROLL_KEYS = ["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "];
-      const onKeydownStop = (e) => {
-        if (SCROLL_KEYS.includes(e.key)) stopAutoplay();
-      };
-
-      window.addEventListener("wheel", stopAutoplay, { passive: true });
-      window.addEventListener("touchstart", stopAutoplay, { passive: true });
-      window.addEventListener("pointerdown", stopAutoplay, { passive: true });
-      window.addEventListener("keydown", onKeydownStop);
-
-      const stepAutoplay = (ts) => {
-        if (!autoplayActive) return;
-        if (autoplayStart === null) autoplayStart = ts;
-        const elapsed = ts - autoplayStart - AUTOPLAY_DELAY;
-        if (elapsed < 0) {
-          autoplayRAF = requestAnimationFrame(stepAutoplay);
-          return;
-        }
-        const t = Math.min(1, elapsed / AUTOPLAY_DURATION);
-        window.scrollTo({ top: t * heroTotalAtLoad, left: 0, behavior: "instant" });
-        if (t < 1 && autoplayActive) {
-          autoplayRAF = requestAnimationFrame(stepAutoplay);
-        } else {
-          stopAutoplay();
-        }
-      };
-      autoplayRAF = requestAnimationFrame(stepAutoplay);
-    }
-  }
 
   /* Scroll reveal */
   const revealEls = document.querySelectorAll(".reveal");

@@ -253,15 +253,7 @@ body:has(.site-gate) { overflow: hidden; }
 .brand img {
   height: 34px;
   width: auto;
-  transform-origin: center center;
-  filter: drop-shadow(0 2px 14px rgba(20, 24, 31, 0.35));
 }
-
-/* Nav pill + mobile toggle: hidden by default until the hero has (almost)
-   finished scrubbing into view, then fade in. Default visible without JS. */
-.header-chrome { opacity: 1; transition: opacity var(--dur-med) var(--ease-out); }
-body.has-scroll-hero .header-chrome { opacity: 0; pointer-events: none; }
-body.has-scroll-hero .site-chrome.is-visible .header-chrome { opacity: 1; pointer-events: auto; }
 
 .nav-pill {
   position: absolute;
@@ -397,58 +389,6 @@ body.has-scroll-hero .site-chrome.is-visible .header-chrome { opacity: 1; pointe
   .nav-pill { display: none; }
   .nav-toggle-float { display: inline-flex; }
 }
-
-/* ============ Hero: scroll-scrubbed frame sequence ============ */
-/* Tall scroll track; the pinned viewport-height stage scrubs a preloaded
-   JPEG frame sequence (drawn to canvas) as the user scrolls through it, then
-   scrolls away normally afterwards. A frame sequence is used instead of a
-   <video> element because programmatic currentTime-seeking on scroll is
-   unreliable on iOS Safari; drawing images to canvas has no such limits. */
-.hero-scroll {
-  position: relative;
-  height: 320vh;
-  padding: 0;
-  background: var(--ink-900);
-}
-.hero-pin {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
-}
-.hero-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-.hero-scrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(20, 24, 31, 0) 55%, rgba(20, 24, 31, 0.55) 100%);
-  pointer-events: none;
-}
-.scroll-cue {
-  position: absolute;
-  left: 50%;
-  bottom: var(--space-4);
-  transform: translateX(-50%);
-  color: #fff;
-  opacity: 0.85;
-  animation: cue-bounce 1.8s var(--ease-out) infinite;
-}
-.scroll-cue svg { width: 26px; height: 26px; }
-@keyframes cue-bounce {
-  0%, 100% { transform: translate(-50%, 0); }
-  50% { transform: translate(-50%, 10px); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .scroll-cue { animation: none; }
-}
-/* If no JS runs, there's no scrubbing — shrink the track to a normal viewport-height banner */
-body:not(.has-scroll-hero) .hero-scroll { height: 100vh; }
-body:not(.has-scroll-hero) .hero-pin { position: relative; }
 
 /* ============ Einleitung (intro) ============ */
 .intro-inner {
@@ -745,10 +685,10 @@ body:not(.has-scroll-hero) .hero-pin { position: relative; }
   .wheel-text-panel { max-width: 46ch; margin-inline: auto; }
 }
 /* If no JS runs, there's no scroll-driven rotation — show a simple static stack */
-body:not(.has-scroll-hero) .wheel-scroll { height: auto; padding-block: var(--space-8); }
-body:not(.has-scroll-hero) .wheel-pin { position: relative; height: auto; overflow: visible; }
-body:not(.has-scroll-hero) .wheel-text { display: block; }
-body:not(.has-scroll-hero) .wheel-text-panel {
+body:not(.has-scroll-wheel) .wheel-scroll { height: auto; padding-block: var(--space-8); }
+body:not(.has-scroll-wheel) .wheel-pin { position: relative; height: auto; overflow: visible; }
+body:not(.has-scroll-wheel) .wheel-text { display: block; }
+body:not(.has-scroll-wheel) .wheel-text-panel {
   grid-row: auto;
   grid-column: auto;
   opacity: 1;
@@ -757,9 +697,9 @@ body:not(.has-scroll-hero) .wheel-text-panel {
   margin-inline: auto;
   margin-bottom: var(--space-6);
 }
-body:not(.has-scroll-hero) .wheel-circle { display: none; }
-body:not(.has-scroll-hero) .wheel-title { display: none; }
-body:not(.has-scroll-hero) .wheel-text-panel::before {
+body:not(.has-scroll-wheel) .wheel-circle { display: none; }
+body:not(.has-scroll-wheel) .wheel-title { display: none; }
+body:not(.has-scroll-wheel) .wheel-text-panel::before {
   content: attr(data-title);
   display: block;
   font-family: var(--font-head);
