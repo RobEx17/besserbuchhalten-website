@@ -1108,16 +1108,19 @@ body:not(.has-scroll-wheel) .wheel-text-panel::before {
   z-index: 500;
   background: var(--bg);
 }
+/* Three-column grid (1fr / auto / 1fr) so the tab pill sits truly
+   centered on the row regardless of the back-link's width, instead of
+   just centered in the leftover space next to it. */
 .examples-topbar-row {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   gap: var(--space-3);
   padding-block: 0.7rem;
   border-bottom: 1px solid var(--border);
 }
-.examples-topbar-row .back-link { margin-bottom: 0; flex-shrink: 0; }
+.examples-topbar-row .back-link { grid-column: 1; justify-self: start; margin-bottom: 0; }
+.examples-topbar-row .examples-tabs { grid-column: 2; justify-self: center; }
 /* Same rounded-pill language as the main site's nav — a single selected
    segment highlighted solid, the rest transparent within the pill. */
 .examples-tabs {
@@ -1189,6 +1192,9 @@ body:not(.has-scroll-wheel) .wheel-text-panel::before {
 .examples-contact-note p { margin: 0; }
 .examples-contact-note a { color: var(--teal-700); font-weight: 600; }
 
-@media (max-width: 560px) {
+@media (max-width: 640px) {
+  .examples-topbar-row { grid-template-columns: 1fr; justify-items: center; gap: 0.6rem; }
+  .examples-topbar-row .back-link,
+  .examples-topbar-row .examples-tabs { grid-column: 1; justify-self: center; }
   .examples-tab { font-size: 0.82rem; padding: 0.5rem 0.85rem; }
 }
