@@ -52,24 +52,17 @@
 
 <a class="skip-link" href="#main">Zum Inhalt springen</a>
 
-<!-- Fixed top bar: logo/back-link row + the permanently visible Leistungen
-     tab selector, styled like index dividers in a folder (flat, top-rounded,
-     the selected one raised and merged with the panel color below). -->
+<!-- Fixed top bar: back-link and the Leistungen tab selector share a single
+     row, styled like the main site's rounded nav pill so it reads as one
+     coherent piece of navigation chrome instead of two stacked bars. -->
 <div class="examples-topbar" id="examplesTopbar">
   <div class="container examples-topbar-row">
-    <a class="examples-logo" href="index.html" aria-label="besserbuchhalten.de – Startseite">
-      <img src="assets/img/logo-quer.png" alt="besserbuchhalten.de Logo">
-    </a>
     <a class="back-link" href="index.html#leistungen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Zurück zu Leistungen</a>
-  </div>
-  <div class="examples-tabbar">
-    <div class="container">
-      <div class="examples-tabs" role="tablist" aria-label="Leistungsbereich auswählen">
-        <button class="examples-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="panel-digitalisierung" data-target="panel-digitalisierung">Digitalisierung</button>
-        <button class="examples-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-automatisierung" data-target="panel-automatisierung">Automatisierung</button>
-        <button class="examples-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-ki" data-target="panel-ki">Künstliche Intelligenz</button>
-        <button class="examples-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-schnittstellen" data-target="panel-schnittstellen">Schnittstellen</button>
-      </div>
+    <div class="examples-tabs" role="tablist" aria-label="Leistungsbereich auswählen">
+      <button class="examples-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="panel-digitalisierung" data-target="panel-digitalisierung">Digitalisierung</button>
+      <button class="examples-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-automatisierung" data-target="panel-automatisierung">Automatisierung</button>
+      <button class="examples-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-ki" data-target="panel-ki">Künstliche Intelligenz</button>
+      <button class="examples-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-schnittstellen" data-target="panel-schnittstellen">Schnittstellen</button>
     </div>
   </div>
 </div>

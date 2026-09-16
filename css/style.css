@@ -1101,7 +1101,7 @@ body:not(.has-scroll-wheel) .wheel-text-panel::before {
 .back-link { display: flex; width: fit-content; align-items: center; gap: 0.4rem; margin-bottom: var(--space-4); color: var(--ink-500); font-weight: 600; }
 .back-link svg { width: 18px; height: 18px; }
 
-/* ============ Leistungen-Beispiele: fixed folder-divider tab selector ============ */
+/* ============ Leistungen-Beispiele: fixed top bar with pill tab selector ============ */
 .examples-topbar {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -1110,53 +1110,43 @@ body:not(.has-scroll-wheel) .wheel-text-panel::before {
 }
 .examples-topbar-row {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
-  padding-block: 0.85rem;
+  padding-block: 0.7rem;
   border-bottom: 1px solid var(--border);
 }
-.examples-logo img { height: 26px; width: auto; display: block; }
-.examples-topbar-row .back-link { margin-bottom: 0; }
-.examples-tabbar { padding-top: var(--space-3); }
+.examples-topbar-row .back-link { margin-bottom: 0; flex-shrink: 0; }
+/* Same rounded-pill language as the main site's nav — a single selected
+   segment highlighted solid, the rest transparent within the pill. */
 .examples-tabs {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 4px;
-}
-/* Styled like index dividers in a ring binder: flat, equal-size rectangles
-   with only the top corners rounded, centered as a group; the selected
-   one lifts slightly and matches the panel's surface color so it reads
-   as "the tab you've pulled forward", the rest stay muted and recessed. */
-.examples-tab {
-  flex: 0 0 200px;
-  min-height: 54px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 0.7rem 1rem;
-  border: 1.5px solid var(--border);
-  border-bottom: none;
-  border-radius: 10px 10px 0 0;
+  gap: 2px;
   background: var(--teal-50);
-  color: var(--ink-500);
-  font-weight: 600;
-  font-size: 0.9rem;
-  line-height: 1.25;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.examples-tabs::-webkit-scrollbar { display: none; }
+.examples-tab {
+  flex: 0 0 auto;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: var(--ink-700);
+  font-weight: 500;
+  font-size: 0.88rem;
+  white-space: nowrap;
   cursor: pointer;
-  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
 }
-.examples-tab:hover { color: var(--teal-700); }
-.examples-tab.is-active {
-  background: var(--surface);
-  color: var(--teal-700);
-  border-color: var(--teal-600);
-  transform: translateY(-4px);
-  box-shadow: 0 -2px 8px rgba(20, 24, 31, 0.05);
-}
+.examples-tab:hover { color: var(--ink-900); background: rgba(255, 255, 255, 0.6); }
+.examples-tab.is-active { background: var(--teal-700); color: #fff; }
 
 .examples-page { padding-top: 150px; }
 /* No card/frame — plain text on the page background, styled like the
@@ -1200,5 +1190,5 @@ body:not(.has-scroll-wheel) .wheel-text-panel::before {
 .examples-contact-note a { color: var(--teal-700); font-weight: 600; }
 
 @media (max-width: 560px) {
-  .examples-tab { flex-basis: 150px; font-size: 0.82rem; padding: 0.6rem 0.8rem; }
+  .examples-tab { font-size: 0.82rem; padding: 0.5rem 0.85rem; }
 }
