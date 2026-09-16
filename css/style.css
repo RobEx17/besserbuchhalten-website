@@ -866,8 +866,16 @@ body:not(.has-scroll-wheel) .wheel-text-panel::before {
   transition: grid-template-rows var(--dur-med) var(--ease-out);
 }
 .faq-item.is-open .faq-answer { grid-template-rows: 1fr; }
+/* overflow:hidden lets this grid item collapse to 0 height when closed —
+   but only if the padding lives on its children, not on this element
+   itself: padding set directly here is unconditional box space and
+   would stay visible even while the row is animated to 0fr. */
 .faq-answer-inner { overflow: hidden; }
-.faq-answer p { padding: 0 1.4rem 1.3rem; margin: 0; font-size: 0.97rem; }
+.faq-answer-inner > * { padding-inline: 1.4rem; }
+.faq-answer-inner > *:last-child { padding-bottom: 1.3rem; }
+.faq-answer-inner p { margin: 0 0 0.9rem; font-size: 0.97rem; }
+.faq-answer-inner p:last-child { margin-bottom: 0; }
+.faq-answer-inner h4 { margin: 0 0 0.3rem; font-size: 1rem; color: var(--teal-700); }
 
 /* ============ Contact ============ */
 .contact-grid {
@@ -1177,6 +1185,7 @@ body:not(.has-scroll-wheel) .wheel-text-panel::before {
   font-size: 1.05rem;
 }
 .examples-panel li { margin-bottom: 0.4rem; }
+.examples-panel .faq-list { max-width: none; text-align: left; margin-top: var(--space-5); }
 
 .examples-contact-note {
   margin-top: var(--space-5);
