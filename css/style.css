@@ -1182,6 +1182,7 @@ body:not(.has-scroll-wheel) .wheel-text-panel::before {
 }
 .examples-panel li { margin-bottom: 0.4rem; }
 .examples-panel .faq-list { max-width: none; text-align: left; margin-top: var(--space-5); }
+.examples-panel .faq-list + p { margin-top: var(--space-5); }
 
 .examples-contact-note {
   margin-top: var(--space-5);
