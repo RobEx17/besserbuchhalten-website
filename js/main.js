@@ -103,9 +103,25 @@
     const link = navLinkEls[activeIndex];
     const linkRect = link.getBoundingClientRect();
     const containerRect = navLinksEl.getBoundingClientRect();
+
+    // The pill's ends are rounded (border-radius: 999px), so a flat-edged
+    // bar sitting near the bottom of the pill would poke past the curve for
+    // the first/last nav item. Clamp it to the safe inset at that height
+    // (circle geometry: inset = r - sqrt(r² - (r-d)²), d = bar's "bottom" offset).
+    const radius = containerRect.height / 2;
+    const barBottomOffset = 4; // matches .nav-indicator's CSS `bottom`
+    const inset = radius - Math.sqrt(Math.max(radius * radius - Math.pow(radius - barBottomOffset, 2), 0));
+    const minLeft = inset;
+    const maxRight = containerRect.width - inset;
+
+    let left = linkRect.left - containerRect.left;
+    let right = left + linkRect.width;
+    left = Math.max(left, minLeft);
+    right = Math.min(right, maxRight);
+
     navIndicator.classList.add("is-visible");
-    navIndicator.style.width = `${linkRect.width}px`;
-    navIndicator.style.transform = `translateX(${linkRect.left - containerRect.left}px)`;
+    navIndicator.style.width = `${Math.max(right - left, 0)}px`;
+    navIndicator.style.transform = `translateX(${left}px)`;
   };
 
   const updateScrollChrome = () => {

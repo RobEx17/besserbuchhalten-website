@@ -257,6 +257,15 @@
     });
   });
 
+  // Deep-linking from the homepage's "Leistungen" dropdown: a hash like
+  // #digitalisierung, #automatisierung, #ki or #schnittstellen selects the
+  // matching tab on load instead of always defaulting to Digitalisierung.
+  var initialHash = window.location.hash.replace("#", "");
+  if (initialHash) {
+    var initialTab = document.querySelector('.examples-tab[data-target="panel-' + initialHash + '"]');
+    if (initialTab) initialTab.click();
+  }
+
   // Keep page content clear of the fixed top bar regardless of its actual
   // rendered height (logo/back-link row + tab row can wrap on narrow
   // screens), instead of hard-coding a padding-top guess in CSS.

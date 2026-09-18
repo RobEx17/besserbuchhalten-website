@@ -294,6 +294,45 @@ body:has(.site-gate) { overflow: hidden; }
 }
 .nav-links a:hover { color: var(--ink-900); background: var(--teal-50); }
 
+/* "Leistungen" hover dropdown: jumps straight to a specific service on the
+   examples subpage instead of just scrolling to the wheel section. */
+.nav-item-dropdown { position: relative; }
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 220px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 6px;
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out), visibility var(--dur-fast) var(--ease-out);
+}
+.nav-item-dropdown:hover .nav-dropdown,
+.nav-item-dropdown:focus-within .nav-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+.nav-dropdown a {
+  display: block;
+  padding: 0.55rem 0.9rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink-700);
+  white-space: nowrap;
+}
+.nav-dropdown a:hover,
+.nav-dropdown a:focus-visible { color: var(--ink-900); background: var(--teal-50); }
+
 /* Small bar under whichever nav item matches the section currently in view */
 .nav-indicator {
   position: absolute;
