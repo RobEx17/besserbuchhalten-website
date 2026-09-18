@@ -13,45 +13,6 @@
 <meta property="og:type" content="website">
 </head>
 <body>
-<div class="site-gate" id="siteGate">
-  <div class="site-gate-card">
-    <img src="assets/img/logo-quer.png" alt="besserbuchhalten.de" class="site-gate-logo">
-    <p class="site-gate-text">Diese Website befindet sich noch in der finalen Abstimmung.<br>Bitte Passwort eingeben, um fortzufahren.</p>
-    <form class="site-gate-form" id="siteGateForm" autocomplete="off">
-      <input type="password" id="siteGatePassword" class="site-gate-input" placeholder="Passwort" autocomplete="off" required>
-      <button type="submit" class="btn btn-accent btn-block">Weiter</button>
-    </form>
-    <p class="site-gate-error" id="siteGateError" hidden>Falsches Passwort. Bitte erneut versuchen.</p>
-  </div>
-</div>
-<script>
-(function () {
-  var GATE_KEY = "bb_site_unlocked";
-  var GATE_PASSWORD = "DieseWebsiteistnochnichtfinal!";
-  var gate = document.getElementById("siteGate");
-
-  if (localStorage.getItem(GATE_KEY) === "true") {
-    gate.remove();
-    return;
-  }
-
-  var form = document.getElementById("siteGateForm");
-  var input = document.getElementById("siteGatePassword");
-  var error = document.getElementById("siteGateError");
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    if (input.value === GATE_PASSWORD) {
-      localStorage.setItem(GATE_KEY, "true");
-      gate.remove();
-    } else {
-      error.hidden = false;
-      input.value = "";
-      input.focus();
-    }
-  });
-})();
-</script>
 
 <a class="skip-link" href="#main">Zum Inhalt springen</a>
 

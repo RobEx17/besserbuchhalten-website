@@ -196,53 +196,6 @@ section[id] { scroll-margin-top: var(--header-h, 80px); }
 .btn-block { width: 100%; }
 .btn-sm { padding: 0.55rem 1.2rem; min-height: 38px; font-size: 0.9rem; }
 
-/* ============ Site password gate ============ */
-body:has(.site-gate) { overflow: hidden; }
-.site-gate {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-4);
-  background: var(--ink-900);
-}
-.site-gate-card {
-  width: 100%;
-  max-width: 380px;
-  background: var(--surface);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  padding: var(--space-6) var(--space-5);
-  text-align: center;
-}
-.site-gate-logo { height: 32px; width: auto; margin-bottom: var(--space-4); }
-.site-gate-text {
-  color: var(--ink-500);
-  font-size: 0.95rem;
-  line-height: 1.5;
-  margin-bottom: var(--space-4);
-}
-.site-gate-form { display: flex; flex-direction: column; gap: var(--space-3); }
-.site-gate-input {
-  width: 100%;
-  padding: 0.8rem 1rem;
-  border-radius: 10px;
-  border: 1.5px solid var(--border);
-  background: var(--bg);
-  color: var(--ink-900);
-  min-height: 44px;
-  text-align: center;
-  transition: border-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
-}
-.site-gate-input:focus {
-  outline: none;
-  border-color: var(--teal-600);
-  box-shadow: 0 0 0 4px var(--teal-100);
-}
-.site-gate-error { color: #b3261e; font-size: 0.9rem; margin-top: var(--space-3); }
-
 /* ============ Header / scroll chrome ============ */
 /* The header is no longer a full-width bar: the logo and the nav pill are
    independent freestanding elements floating over the page. */
