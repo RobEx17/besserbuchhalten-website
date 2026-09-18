@@ -218,14 +218,21 @@
             <h4>Vom Kassensystem in die Buchhaltung</h4>
             <p>Ein typisches Beispiel für eine solche Schnittstelle ist die Verbindung zwischen Kassensystem und DATEV: Registrierkassen erfassen täglich zahlreiche Verkaufsvorgänge – Barzahlungen, Kartenzahlungen, unterschiedliche Steuersätze, Retouren. Über eine DATEV-Schnittstelle werden diese Tagesumsätze als fertige Buchungssätze exportiert, die der Steuerberater direkt in seine Kanzleisoftware einlesen kann.</p>
             <h4>Diese Einstellungen müssen im Kassensystem vorher hinterlegt sein</h4>
-            <p>Damit der Export korrekte Buchungen erzeugt, müssen im Kassensystem vorab mehrere Stammdaten gepflegt werden:</p>
-            <ul>
-              <li><strong>Erlöskonten je Warengruppe:</strong> Jede Produkt- oder Leistungsgruppe (z. B. Speisen und Getränke) muss einem passenden Erlöskonto zugeordnet werden, getrennt nach Steuersatz.</li>
-              <li><strong>Kassen- und Gegenkonten:</strong> Für jede Zahlungsart (Bar, EC-Karte, Kreditkarte, ggf. Überweisung) ist ein Gegenkonto zu hinterlegen, damit der spätere Kontenabgleich stimmt.</li>
-              <li><strong>Steuersätze:</strong> Die hinterlegten Umsatzsteuersätze müssen mit den tatsächlich verkauften Leistungen übereinstimmen.</li>
-              <li>Optional: Kostenstellen, etwa bei mehreren Filialen oder Fachbereichen.</li>
-            </ul>
-            <p>Fehlen diese Zuordnungen oder sind sie falsch gepflegt, entstehen beim Import Fehlbuchungen oder Rückfragen der Kanzlei – die Vorbereitung im Ausgangssystem entscheidet daher maßgeblich über die Qualität des Exports.</p>
+            <div class="faq-media-row">
+              <div class="faq-media-text">
+                <p>Damit der Export korrekte Buchungen erzeugt, müssen im Kassensystem vorab mehrere Stammdaten gepflegt werden:</p>
+                <ul>
+                  <li><strong>Erlöskonten je Warengruppe:</strong> Jede Produkt- oder Leistungsgruppe (z. B. Speisen und Getränke) muss einem passenden Erlöskonto zugeordnet werden, getrennt nach Steuersatz.</li>
+                  <li><strong>Kassen- und Gegenkonten:</strong> Für jede Zahlungsart (Bar, EC-Karte, Kreditkarte, ggf. Überweisung) ist ein Gegenkonto zu hinterlegen, damit der spätere Kontenabgleich stimmt.</li>
+                  <li><strong>Steuersätze:</strong> Die hinterlegten Umsatzsteuersätze müssen mit den tatsächlich verkauften Leistungen übereinstimmen.</li>
+                  <li>Optional: Kostenstellen, etwa bei mehreren Filialen oder Fachbereichen.</li>
+                </ul>
+                <p>Fehlen diese Zuordnungen oder sind sie falsch gepflegt, entstehen beim Import Fehlbuchungen oder Rückfragen der Kanzlei – die Vorbereitung im Ausgangssystem entscheidet daher maßgeblich über die Qualität des Exports.</p>
+              </div>
+              <figure class="faq-media-figure">
+                <img src="assets/img/schnittstelle-kassensystem-buchhaltung.png" alt="Schema der Kontenzuordnung einer Kassenschnittstelle nach SKR03: Umsatzarten wie Getränke und Speisen werden je nach Umsatzsteuersatz den Erlöskonten 8400 bzw. 8300 zugeordnet, Zahlungsarten wie Barzahlung, Kartenzahlung und Gutschein den Bestandskonten 1000, 1361 und 1796." loading="lazy">
+              </figure>
+            </div>
             <h4>Der technische Ablauf des Exports</h4>
             <p>Auf Basis der Stammdaten und den erfassten Geschäftsvorfällen erstellt das Kassensystem für einen gewählten Zeitraum automatisch eine Datei mit allen relevanten Buchungsdaten. Diese Datei übergibt das Unternehmen an den Steuerberater, der sie direkt in seine Kanzleisoftware einliest – die Umsätze müssen dort nicht manuell abgetippt oder nacherfasst werden.</p>
             <h4>Beispiel: Euronet für Augenoptiker und Hörakustiker</h4>

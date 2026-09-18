@@ -919,6 +919,22 @@ body:not(.has-scroll-wheel) .wheel-text-panel::before {
 .faq-answer-inner ul:last-child { margin-bottom: 0; }
 .faq-answer-inner li { margin-bottom: 0.4rem; }
 
+/* Text + illustrative graphic side by side within one accordion
+   subsection; wraps to a stacked layout once the text column would get
+   too narrow to stay readable next to the image. */
+.faq-media-row { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; }
+.faq-media-text { flex: 1 1 280px; min-width: 0; }
+.faq-media-text :last-child { margin-bottom: 0; }
+.faq-media-figure { flex: 1 1 220px; max-width: 300px; margin: 0 auto; }
+.faq-media-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
 /* ============ Contact ============ */
 .contact-grid {
   display: grid;
