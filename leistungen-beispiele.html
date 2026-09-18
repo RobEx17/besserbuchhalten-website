@@ -226,7 +226,12 @@
               <li>Optional: Kostenstellen, etwa bei mehreren Filialen oder Fachbereichen.</li>
             </ul>
             <figure class="faq-media-figure">
-              <img src="assets/img/schnittstelle-kassensystem-buchhaltung.png" alt="Schema der Kontenzuordnung einer Kassenschnittstelle nach SKR03: Umsatzarten wie Getränke und Speisen werden je nach Umsatzsteuersatz den Erlöskonten 8400 bzw. 8300 zugeordnet, Zahlungsarten wie Barzahlung, Kartenzahlung und Gutschein den Bestandskonten 1000, 1361 und 1796." loading="lazy">
+              <button type="button" class="faq-media-zoom" aria-label="Grafik vergrößern">
+                <img src="assets/img/schnittstelle-kassensystem-buchhaltung.png" alt="Schema der Kontenzuordnung einer Kassenschnittstelle nach SKR03: Umsatzarten wie Getränke und Speisen werden je nach Umsatzsteuersatz den Erlöskonten 8400 bzw. 8300 zugeordnet, Zahlungsarten wie Barzahlung, Kartenzahlung und Gutschein den Bestandskonten 1000, 1361 und 1796." loading="lazy">
+                <span class="faq-media-zoom-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg>
+                </span>
+              </button>
             </figure>
             <p>Fehlen diese Zuordnungen oder sind sie falsch gepflegt, entstehen beim Import Fehlbuchungen oder Rückfragen der Kanzlei – die Vorbereitung im Ausgangssystem entscheidet daher maßgeblich über die Qualität des Exports.</p>
             <h4>Der technische Ablauf des Exports</h4>
@@ -246,6 +251,14 @@
     </div>
   </div>
 </main>
+
+<div class="lightbox" id="lightbox" hidden>
+  <div class="lightbox-backdrop" data-lightbox-close></div>
+  <button type="button" class="lightbox-close" data-lightbox-close aria-label="Schließen">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+  </button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+</div>
 
 <footer class="site-footer">
   <div class="container footer-bottom">
@@ -307,6 +320,31 @@
         question.setAttribute("aria-expanded", "true");
       }
     });
+  });
+
+  // Click-to-enlarge for inline graphics: opens the same image full-size
+  // in a simple overlay instead of navigating away or embedding a plugin.
+  var lightbox = document.getElementById("lightbox");
+  var lightboxImg = document.getElementById("lightboxImg");
+  var closeLightbox = function () {
+    lightbox.hidden = true;
+    lightboxImg.src = "";
+    document.body.style.overflow = "";
+  };
+  document.querySelectorAll(".faq-media-zoom").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var img = btn.querySelector("img");
+      lightboxImg.src = img.currentSrc || img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.hidden = false;
+      document.body.style.overflow = "hidden";
+    });
+  });
+  lightbox.querySelectorAll("[data-lightbox-close]").forEach(function (el) {
+    el.addEventListener("click", closeLightbox);
+  });
+  window.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !lightbox.hidden) closeLightbox();
   });
 })();
 </script>

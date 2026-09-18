@@ -923,16 +923,86 @@ body:not(.has-scroll-wheel) .wheel-text-panel::before {
 .faq-answer-inner ul:last-child { margin-bottom: 0; }
 .faq-answer-inner li { margin-bottom: 0.4rem; }
 
-/* Illustrative graphic, full-width under whichever list/paragraph it follows. */
-.faq-media-figure { margin: 1.1rem auto; max-width: 420px; }
-.faq-media-figure img {
+/* Illustrative graphic, as wide as the text it sits under, with a
+   click-to-enlarge affordance opening the same image in .lightbox. */
+.faq-media-figure { margin: 1.1rem 0; }
+.faq-media-zoom {
+  display: block;
+  position: relative;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: zoom-in;
+}
+.faq-media-zoom img {
   display: block;
   width: 100%;
   height: auto;
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--dur-fast) var(--ease-out);
 }
+.faq-media-zoom:hover img,
+.faq-media-zoom:focus-visible img { box-shadow: var(--shadow-md); }
+.faq-media-zoom-icon {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  color: var(--ink-700);
+}
+.faq-media-zoom-icon svg { width: 16px; height: 16px; }
+
+/* Full-screen click-to-enlarge overlay for inline graphics. */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+}
+.lightbox[hidden] { display: none; }
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 24, 31, 0.75);
+}
+.lightbox-img {
+  position: relative;
+  max-width: min(92vw, 960px);
+  max-height: 88vh;
+  width: auto;
+  height: auto;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+}
+.lightbox-close {
+  position: absolute;
+  top: var(--space-4);
+  right: max(var(--space-4), calc(50% - 480px));
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(20, 24, 31, 0.5);
+  color: #fff;
+}
+.lightbox-close svg { width: 20px; height: 20px; }
 
 /* ============ Contact ============ */
 .contact-grid {
