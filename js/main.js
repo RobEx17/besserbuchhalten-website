@@ -52,7 +52,14 @@
   const wheelTitle = document.getElementById("wheelTitle");
   const wheelIcons = document.querySelectorAll(".wheel-icon");
   const wheelPanels = document.querySelectorAll(".wheel-text-panel");
-  const canRotateWheel = !!(wheelScroll && wheelRing && wheelIcons.length && wheelPanels.length);
+  // The pinned 100vh stage assumes a viewport tall/wide enough to fit the
+  // heading, circle and text side by side without clipping anything — on
+  // narrow phones (and with the browser chrome's dynamic height changes)
+  // that assumption breaks down, so below the same 900px breakpoint the
+  // wheel's other narrow-layout styles use, fall back to the plain static
+  // stacked layout instead (the same one used for prefers-reduced-motion).
+  const supportsWheelPin = window.matchMedia("(min-width: 901px)").matches;
+  const canRotateWheel = !!(wheelScroll && wheelRing && wheelIcons.length && wheelPanels.length && supportsWheelPin);
   if (canRotateWheel) {
     document.body.classList.add("has-scroll-wheel");
   }
